@@ -86,6 +86,17 @@ USE `DATN`;
         `PRODUCTCATEGORY_DESCRIBE` varchar(255) NOT NULL,
         PRIMARY KEY (`PRODUCTCATEGORY_ID`)
     );
+    CREATE TABLE
+    IF NOT EXISTS `ADMIN` (
+        `ADMIN_ID` int(11) NOT NULL AUTO_INCREMENT,
+        `ADMIN_NAME` varchar(255) NOT NULL,
+        `ADMIN_EMAIL` varchar(255) NOT NULL,
+        `ADMIN_PASSWORD` varchar(255) NOT NULL,
+        `ADMIN_PHONE` int(20) unique NOT NULL,
+        `ADMIN_IMAGE` varchar(255) NOT NULL,
+        `ADMIN_ADDRESS` varchar(255) NOT NULL,
+        PRIMARY KEY (`ADMIN_ID`)
+    );
 
     -- tạo database
 
@@ -255,3 +266,23 @@ VALUES (
         'https://www.w3schools.com/howto/img_avatar.png',
         1
     );
+    INSERT INTO
+    `ADMIN` (
+        `ADMIN_ID`,
+        `ADMIN_EMAIL`,
+        `ADMIN_ADDRESS`,
+        `ADMIN_PHONE`,
+        `ADMIN_PASSWORD`,
+        `ADMIN_NAME`,
+        `ADMIN_IMAGE`
+    )
+VALUES (
+        1,
+        'admin@gmail.com',
+        'Cong Ty HCM',
+        0373982103,
+        'admin',
+        'Admin 1',
+        'https://www.w3schools.com/howto/img_avatar.png'
+    );
+    
