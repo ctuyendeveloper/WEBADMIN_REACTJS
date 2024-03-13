@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Route,
 import React, { useState } from 'react';
 
 import Login from './admin/Login'
+import Main from './product/main'
+import ListProduct from './product/listproduct'
 
 function App() {
 
@@ -36,7 +38,7 @@ function App() {
     {
       return <Outlet/>
     }
-    return <Navigate to="/login"/>
+    return <Navigate to="/"/>
   }
 
   // Những componet không đăng nhập truy cập được
@@ -44,7 +46,7 @@ function App() {
   const PubliceRoute = () => {
     if(user)
     {
-    return <Navigate to="/"/>
+    return <Navigate to="/login"/>
     }
     return <Outlet/>
   }
@@ -55,13 +57,13 @@ function App() {
         <Routes>
         {/* <Route path="/reset-password" element={<ResetPassword/>} /> */}
           <Route element={<PubliceRoute/>}>
-            <Route path="/" element={<Login saveUser={saveUserToLocalStorage}/>} />
+            <Route path="/login" element={<Login saveUser={saveUserToLocalStorage}/>} />
           </Route>
           
           <Route element={<ProtectedRoute/>}>
-            {/* <Route path="/" element={<List user={user}/>} />
-            <Route path="/list-topic" element={<ListTopic user={user}/>} />
-            <Route path="/addtp" element={<Addtp user={user}/>} />
+            <Route path="/" element={<Main user={user}/>} />
+            <Route path="/list-product" element={<ListProduct user={user}/>} />
+            {/* <Route path="/addtp" element={<Addtp user={user}/>} />
             <Route path="/edittp/:id" element={<Edittp user={user}/>} />
             <Route path="/add" element={<Add user={user}/>} />
             <Route path="/edit/:id" element={<Edit user={user}/>} /> */}

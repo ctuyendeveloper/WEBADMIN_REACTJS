@@ -233,7 +233,7 @@ VALUES (
         30.000,
         'Sua',
         25.000,
-        2
+        1
     );
 
         INSERT INTO

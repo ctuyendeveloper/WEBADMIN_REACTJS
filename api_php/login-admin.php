@@ -35,39 +35,39 @@ try {
     // lấy dữ liệu từ database
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
     // kiểm tra dữ liệu
-    echo json_encode(
-        array(
-            "status" => true, // login thành công
-            "user" => $user
-        )
-    );
-
-    // if($user)
-    // {
-    //     // kiểm tra mật khẩu
-    //     $check = password_verify($admin_password, $user['ADMIN_PASSWORD']);
-    //     if($check == false)
-    //     {
-    //         echo json_encode(
-    //             array(
-    //             "status" => false, // login thành công
-    //             "message" => "Mật khẩu không chính xác"
-    //             )
-    //         );
-    //         return;
-    //     }
-    //     echo json_encode(
-    //         array(
+    // echo json_encode(
+    //     array(
     //         "status" => true, // login thành công
     //         "user" => $user
-    //         )
-    //     );
-    // } else {
-    //     echo json_encode(array(
-    //         "status" => false, // login không thành công
-    //         "user" => null
-    //     ));
-    // }
+    //     )
+    // );
+
+    if($user)
+    {
+        // kiểm tra mật khẩu
+        // $check = password_verify($admin_password, $user['ADMIN_PASSWORD']);
+        if($password == false)
+        {
+            echo json_encode(
+                array(
+                "status" => false, // login thành công
+                "message" => "Mật khẩu không chính xác"
+                )
+            );
+            return;
+        }
+        echo json_encode(
+            array(
+            "status" => true, // login thành công
+            "user" => $user
+            )
+        );
+    } else {
+        echo json_encode(array(
+            "status" => false, // login không thành công
+            "user" => null
+        ));
+    }
 } catch (Exception $e) {
     echo json_encode(array('message' => $e->getMessage()));
 }
