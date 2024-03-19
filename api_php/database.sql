@@ -233,7 +233,7 @@ VALUES (
         30.000,
         'Sua',
         25.000,
-        1
+        2
     );
 
         INSERT INTO
@@ -244,7 +244,7 @@ VALUES (
     )
 VALUES (
         1,
-        'Quan Ao',
+        'Quan Ao123',
         'Quan ao cho pet'
     ),(
         2,
