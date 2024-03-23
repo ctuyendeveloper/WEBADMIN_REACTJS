@@ -38,7 +38,7 @@ function App() {
     {
       return <Outlet/>
     }
-    return <Navigate to="/"/>
+    return <Navigate to="/login"/>
   }
 
   // Những componet không đăng nhập truy cập được
@@ -46,7 +46,7 @@ function App() {
   const PubliceRoute = () => {
     if(user)
     {
-    return <Navigate to="/login"/>
+    return <Navigate to="/"/>
     }
     return <Outlet/>
   }

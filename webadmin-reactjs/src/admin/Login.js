@@ -23,11 +23,12 @@ const Login = (props) => {
             console.log(result.user);
             if(result.status)
             {
+              alert(result.message);
               saveUser(result.user);
             }
             else
             {
-              alert('Dang nhap that bai');
+              alert(result.message);
             }
         } catch (error) {
             console.log(error);

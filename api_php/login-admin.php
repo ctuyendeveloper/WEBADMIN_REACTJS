@@ -45,8 +45,8 @@ try {
     if($user)
     {
         // kiểm tra mật khẩu
-        // $check = password_verify($admin_password, $user['ADMIN_PASSWORD']);
-        if($password == false)
+        // $check = password_verify($password, $user['ADMIN_PASSWORD']);
+        if($password !== $user['ADMIN_PASSWORD'])
         {
             echo json_encode(
                 array(
@@ -59,13 +59,15 @@ try {
         echo json_encode(
             array(
             "status" => true, // login thành công
-            "user" => $user
+            "user" => $user,
+            "message" => "Login thành công"
             )
         );
     } else {
         echo json_encode(array(
             "status" => false, // login không thành công
-            "user" => null
+            "user" => null,
+            "message" => "Không có user"
         ));
     }
 } catch (Exception $e) {
