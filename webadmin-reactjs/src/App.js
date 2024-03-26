@@ -7,6 +7,7 @@ import React, { useState } from 'react';
 import Admin from './component/user/trangchu'
 import Login from './component/LoginSignup/Login'
 import ThongKe from './component/thongke/Thongke'
+import Order from './component/order/Order'
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
        <Route path='/Admin' element={<Admin/>}/>
        <Route path='/Login' element={<Login/>}/>
        <Route path='/ThongKe' element={<ThongKe/>}/>
+       <Route path='/Order' element={<Order/>}/>
         </Routes>
       </Router>
   

@@ -23,6 +23,7 @@ const Trangchu = () => {
                     <li><a href="#">Quản Lí Người Dùng</a></li>
                     <li><a href="#">Quản Lí Đơn Hàng</a></li>
                     <li><a href="#">Thống kế</a></li>
+                    <li><a href="#">Exit</a></li>
                 </ul>
             </nav>
             <div className="cardbox">
