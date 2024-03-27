@@ -1,5 +1,6 @@
 import React, { useState, useEffect, Alert } from 'react';
 import AxiosInstance from '../helper/AxiosInstance';
+// import './css/listpd.css'
 import { useNavigate } from 'react-router-dom';
 
 const App = (props) => {
@@ -74,7 +75,7 @@ const App = (props) => {
 
         <div className="containerlist mt-5">
         <h1>List Product</h1>
-        <table className="table">
+        <table className="table" >
             <thead>
                 <tr>
                     <th>Id</th>
@@ -87,7 +88,7 @@ const App = (props) => {
             <tbody>
                 {
                     news.map((item, index) => (
-                        <tr key={index}>
+                        <tr key={index} style={{}}>
                             <td>{index + 1}</td>
                             <td>{item.product_name}</td>
                             <td>{item.productcategory_name}</td>

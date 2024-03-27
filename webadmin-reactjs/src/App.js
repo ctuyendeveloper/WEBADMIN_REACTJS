@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 
 import Login from './admin/Login'
 import Main from './product/main'
-import ListProduct from './product/listproduct'
+import ListProduct from './product/listproduct2'
 
 function App() {
 
