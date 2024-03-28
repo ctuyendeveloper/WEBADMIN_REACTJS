@@ -13,8 +13,9 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 
 include_once './connection.php';
 
-$sqlQuery = "SELECT product.product_id, product.product_name, productcategory.productcategory_name, product.product_price, product.product_promotionprice
-FROM product INNER JOIN productcategory ON product.productcategory_id = productcategory.productcategory_id ORDER BY product.product_id";
+$id = $_GET['id'];
+
+$sqlQuery = "SELECT image.image_link FROM image INNER JOIN product ON image.product_id = product.product_id WHERE image.product_id = $id";
 
 $stmt = $dbConn->prepare($sqlQuery);
 $stmt->execute();
