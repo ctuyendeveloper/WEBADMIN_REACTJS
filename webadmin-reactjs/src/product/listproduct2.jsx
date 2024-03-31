@@ -57,13 +57,13 @@ const ProductList = () => {
     const openDetailProductDialog = (product, editMode = false) => { // Thêm chế độ chỉnh sửa vào hàm này
         setSelectedProduct(product);
         setEditMode(editMode); // Cập nhật chế độ chỉnh sửa
-        document.body.classList.add('modal-open'); // Thêm lớp modal-open khi dialog được mở
+        setShowOverlay(true);
     };
     
     const closeDetailProductDialog = () => {
         setSelectedProduct(null);
         setEditMode(false); // Đặt lại chế độ chỉnh sửa khi đóng dialog
-        document.body.classList.remove('modal-open'); // Xóa lớp modal-open khi dialog được đóng
+        setShowOverlay(false);
     };
 
     const handleProductClick = (product) => {
