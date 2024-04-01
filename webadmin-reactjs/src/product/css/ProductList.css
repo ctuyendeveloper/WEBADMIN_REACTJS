@@ -1,10 +1,13 @@
+
 .product-list {
   margin-top: 20px;
   font-family: Arial, sans-serif;
   display: flex;
   flex-direction: column;
-  overflow-y: auto; /* Kích hoạt cuộn dọc khi nội dung vượt qua chiều cao */
-  max-height: 500px; /* Đặt chiều cao tối đa cho phần tử */
+  overflow-y: auto;
+  /* Kích hoạt cuộn dọc khi nội dung vượt qua chiều cao */
+  max-height: 500px;
+  /* Đặt chiều cao tối đa cho phần tử */
 }
 
 .sanphamchucnang {
@@ -74,9 +77,14 @@
   width: 100%;
   border-collapse: collapse;
 }
-.product-list table, tbody, tr {
-  max-height: 500px; /* Đặt chiều cao tối đa cho danh sách sản phẩm */
-  overflow-y: auto; /* Kích hoạt thanh cuộn dọc khi danh sách vượt quá chiều cao tối đa */
+
+.product-list table,
+tbody,
+tr {
+  max-height: 500px;
+  /* Đặt chiều cao tối đa cho danh sách sản phẩm */
+  overflow-y: auto;
+  /* Kích hoạt thanh cuộn dọc khi danh sách vượt quá chiều cao tối đa */
 }
 
 .product-list th,
@@ -101,40 +109,69 @@
   background-color: #ddd;
 }
 
-.navbar {
-  width: 100%;
-  background-color: #5CB15A;
-  padding: 10px;
-  border-radius: 5px;
-  display: flex;
-  /* flex-direction: column; */
+.navbar ul,
+.navbar li {
+  margin: 0;
+  padding: 0;
 }
 
-.navbar-nav {
-
-  flex-direction: row;
-  list-style-type: none;
+.navbar ul {
+  background: gray;
+  list-style: none;
 }
 
-.nav-item {
-
-  display: inline-block;
-  /* Chuyển từ display: block thành inline-block */
-  margin-right: 10px;
-  /* Thêm khoảng cách giữa các item */
+.navbar li {
+  float: left;
+  position: relative;
+  width: auto;
 }
+
 
 .nav-link {
-  color: #fff;
+  background-color: #43aa3d;
+  color: #ffffff;
+  display: block;
+  font-size: 15px;
+  padding: 15px 96px;
+  text-align: center;
   text-decoration: none;
-  padding: 5px 10px;
-  border-radius: 3px;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .nav-link:hover {
-  color: #fff;
-  background-color: #468D42;
+  background: rgba(128, 128, 128, 0.144);
+}
+
+.nav-link:hover .nav-link{
+  background: rgba(128, 128, 128, 0.144);
+}
+
+#submenu {
+  left: 0;
+  opacity: 0;
+  position: absolute;
+  top: 50px;
+  visibility: hidden;
+  z-index: 1;
+}
+
+li:hover ul#submenu {
+  opacity: 1;
+  visibility: visible;
+  height: 100%;
+
+}
+
+#submenu li {
+  float: none;
+  width: 100%;
+}
+
+.nav-link-sub {
+  color: #000;
+  text-decoration: none;
+
+
 }
 
 .top {
@@ -156,4 +193,3 @@
 .profile:hover {
   background-color: #ddd;
 }
-
