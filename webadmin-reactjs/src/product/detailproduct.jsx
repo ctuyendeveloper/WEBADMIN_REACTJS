@@ -125,6 +125,18 @@ const DetailProductDialog = ({ product, onClose, editMode }) => {
         }, 10); // Điều chỉnh tốc độ lướt ở đây
         setIntervalId(id); // Lưu id của setInterval để có thể dừng nó sau này
     };
+    const handleDelete = async () => {
+        const confirmDelete = window.confirm('Bạn có chắc chắn muốn xóa?');
+
+        if (confirmDelete) {
+            // gọi api edit
+            await AxiosInstance().delete(`/deleteproduct.php?id=${editedProduct.product_id}`);
+            alert("Xóa tin tức thành công")
+            window.location.reload();
+            // Thực hiện xóa nếu người dùng xác nhận
+            // axios.delete(`/api/news/${id}`).then(() => navigate('/list'));
+        }
+    }
 
     const handleImageMouseUp = () => {
         clearInterval(intervalId); // Dừng lướt tự động khi chuột được thả ra
@@ -186,7 +198,7 @@ const DetailProductDialog = ({ product, onClose, editMode }) => {
                 </div>
                 <br />
                 {saveChangesButton}
-                <button type="button" className="btnxoa">Xóa Sản Phẩm</button>
+                <button type="button" className="btnxoa" onClick={handleDelete}>Xóa Sản Phẩm</button>
                 <button type="button" onClick={onClose}>Đóng</button>
             </form>
         </div>
