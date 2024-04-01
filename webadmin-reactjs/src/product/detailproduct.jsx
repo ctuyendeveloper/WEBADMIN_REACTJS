@@ -5,8 +5,8 @@ import './css/detailproduct.css'; // Import CSS file for styling
 const DetailProductDialog = ({ product, onClose, editMode }) => {
     const [editedProduct, setEditedProduct] = useState(product);
     const [intervalId, setIntervalId] = useState(null);
-    const [imageUrls, setImageUrls] = useState([]);
-    const [selectedImages, setSelectedImages] = useState([]); // Thêm state để lưu trữ các ảnh được chọn từ máy tính
+    const [productcategory, setproductcategory] = useState([]);
+    const [product_category, setproduct_category] = useState();
     const [previewImages, setPreviewImages] = useState([]); // Thêm state để lưu trữ các ảnh được chọn từ máy tính cho xem trước
 
     useEffect(() => {
@@ -16,8 +16,15 @@ const DetailProductDialog = ({ product, onClose, editMode }) => {
                 const response = await AxiosInstance().get(`/getimage.php?id=${editedProduct.product_id}`);
                 const newsItems = Array.isArray(response) ? response : [response]; // Đảm bảo rằng newsItems luôn là một mảng
                 const imageLinks = newsItems.map(item => item.image_link); // Lặp qua từng phần tử và lấy ra các URL hình ảnh
-                console.log(imageLinks); // Kiểm tra xem imageLinks có chứa các URL hình ảnh hay không
+                // console.log(imageLinks); // Kiểm tra xem imageLinks có chứa các URL hình ảnh hay không
                 setPreviewImages(imageLinks); // Cập nhật state với danh sách các URL hình ảnh từ API
+                const result2 = await AxiosInstance().get(`/getlistproductcategory.php`);
+                // editedProduct.productcategory_id = product_category
+                setproductcategory(result2)
+                setproduct_category(editedProduct.productcategory_id)
+                // console.log(result2.PRODUCTCATEGORY_ID)
+                // console.log(editedProduct.productcategory_id)
+              
             } catch (error) {
                 console.error('Error fetching image URLs:', error);
             }
@@ -26,6 +33,7 @@ const DetailProductDialog = ({ product, onClose, editMode }) => {
         // Gọi hàm fetchImageUrls khi component được mount và khi sản phẩm được cập nhật
         fetchImageUrls();
     }, [editedProduct.product_id, editMode]); // Thêm editMode vào dependencies để khi chế độ chỉnh sửa thay đổi, danh sách ảnh cũng được cập nhật
+
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -36,21 +44,36 @@ const DetailProductDialog = ({ product, onClose, editMode }) => {
     };
 
     const handleImageChange = async (e) => {
-        const files = e.target.files; // Lấy ra danh sách các file ảnh được chọn
+        // const files = e.target.files; // Lấy ra danh sách các file ảnh được chọn
+        // const imageArray = Array.from(files).map(file => URL.createObjectURL(file)); // Tạo một mảng chứa URL cho mỗi ảnh
+        // const formData = new FormData();
+        // imageArray.forEach(image => {
+        //     formData.append('image', image);
+        // });
+        // console.log(imageArray)
+        // setSelectedImages(files); // Lưu trữ các file ảnh được chọn
+        // setPreviewImages(imageArray); // Thêm các URL của các ảnh mới vào trong previewImages
+        // const uploadResponse = await fetch("http://127.0.0.1:8686/uploadfile.php", {
+        //   method: "POST",
+        //   body: formData,
+        // });
+        // // console.log("asdasd2", uploadResponse)
+        // const uploadResult = await uploadResponse.json();
+        // console.log("asdasd2", uploadResult)
+
+        const files = e.target.files;
         const imageArray = Array.from(files).map(file => URL.createObjectURL(file)); // Tạo một mảng chứa URL cho mỗi ảnh
         const formData = new FormData();
-        previewImages.forEach(image => {
-            formData.append('images[]', image);
+        Array.from(files).forEach(file => {
+            formData.append('image[]', file);
         });
-        setSelectedImages(files); // Lưu trữ các file ảnh được chọn
         setPreviewImages(imageArray); // Thêm các URL của các ảnh mới vào trong previewImages
         const uploadResponse = await fetch("http://127.0.0.1:8686/uploadfile.php", {
-          method: "POST",
-          body: formData,
+            method: "POST",
+            body: formData,
         });
-        // console.log("asdasd2", uploadResponse)
         const uploadResult = await uploadResponse.json();
-        console.log(uploadResult)
+        setPreviewImages(uploadResult.paths)
         // setPreviewImages(uploadResult.path);
     };
 
@@ -65,6 +88,9 @@ const DetailProductDialog = ({ product, onClose, editMode }) => {
             formData.append('productcategory', editedProduct.productcategory_name);
             formData.append('productprice', editedProduct.product_price);
             formData.append('productpricemotion', editedProduct.product_promotionprice);
+            formData.append('productcategoryid', product_category);
+            formData.append('productdescribe', editedProduct.product_describe);
+            console.log(editedProduct.productcategory_id)
 
             // Gửi ảnh mới
             previewImages.forEach(image => {
@@ -73,13 +99,15 @@ const DetailProductDialog = ({ product, onClose, editMode }) => {
 
             // Gọi API cập nhật sản phẩm
             const response = await AxiosInstance().put(`/updateproduct.php?id=${editedProduct.product_id}`, formData);
+            console.log(response.status)
 
             // Xử lý kết quả
-            if (response.status === 200) {
-                console.log('Cập nhật sản phẩm thành công!');
+            if (response.status) {
+                alert(response.message);
                 onClose();
+                window.location.href = '/list-product';
             } else {
-                console.error('Cập nhật sản phẩm thất bại:', response);
+                console.error(response);
             }
         } catch (error) {
             console.error('Error updating product:', error);
@@ -121,8 +149,13 @@ const DetailProductDialog = ({ product, onClose, editMode }) => {
                     <input type="text" name="product_name" value={editedProduct.product_name} onChange={handleChange} />
                 </div>
                 <div>
-                    <label>Loại Sản Phẩm:</label>
-                    <input type="text" name="productcategory_name" value={editedProduct.productcategory_name} onChange={handleChange} />
+                    <label>Loại Sản Phẩm: </label>
+                    {/* <input type="text" name="product_name" value={editedProduct.productcategory_id} onChange={handleChange} /> */}
+                    <select value={product_category} onChange={(e) => setproduct_category(e.target.value)}>
+                        {productcategory.map((item, index) => (
+                            <option value={item.PRODUCTCATEGORY_ID} key={index}> {item.PRODUCTCATEGORY_NAME} </option>
+                        ))}
+                    </select>
                 </div>
                 <div>
                     <label>Giá Sản Phẩm:</label>
@@ -147,7 +180,13 @@ const DetailProductDialog = ({ product, onClose, editMode }) => {
                 </div>
                 {/* Thêm input cho phép chọn nhiều ảnh từ máy tính */}
                 <input type="file" accept="image/*" onChange={handleImageChange} multiple />
+                <div>
+                    <label>Mô tả về sản phẩm:</label>
+                    <input type="text" name="product_describe" value={editedProduct.product_describe} onChange={handleChange} />
+                </div>
+                <br />
                 {saveChangesButton}
+                <button type="button" className="btnxoa">Xóa Sản Phẩm</button>
                 <button type="button" onClick={onClose}>Đóng</button>
             </form>
         </div>

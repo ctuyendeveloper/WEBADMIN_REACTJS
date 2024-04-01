@@ -5,7 +5,7 @@ import './css/ProductList.css'; // Import CSS file for styling
 import './css/addproduct.css'; // Import CSS file for styling
 import Logo from '../image/logo.png'
 import AddProductDialog from './addproduct'; // Import component dialog thêm mới sản phẩm
-import DetailProductDialog from './detailproduct'; 
+import DetailProductDialog from './detailproduct';
 
 const ProductList = () => {
 
@@ -48,7 +48,7 @@ const ProductList = () => {
         setShowAddProductDialog(true);
         setShowOverlay(true);
     };
-    
+
     const closeAddProductDialog = () => {
         setShowAddProductDialog(false);
         setShowOverlay(false);
@@ -59,7 +59,7 @@ const ProductList = () => {
         setEditMode(editMode); // Cập nhật chế độ chỉnh sửa
         setShowOverlay(true);
     };
-    
+
     const closeDetailProductDialog = () => {
         setSelectedProduct(null);
         setEditMode(false); // Đặt lại chế độ chỉnh sửa khi đóng dialog
@@ -96,11 +96,10 @@ const ProductList = () => {
                     </li>
                 </ul>
             </nav>
-            <div className="product-list">
+            <div className='sanphamchucnang'>
                 <h2>Sản Phẩm</h2>
-
                 <div className="search-bar">
-                <button className="add-button" onClick={openAddProductDialog}>Thêm mới sản phẩm</button>
+                    <button className="add-button" onClick={openAddProductDialog}>Thêm mới sản phẩm</button>
                     <div className={`overlay ${showOverlay ? 'show-overlay' : ''}`}></div> {/* Overlay */}
                     {showAddProductDialog && <AddProductDialog onClose={closeAddProductDialog} />}
                     <input
@@ -111,6 +110,8 @@ const ProductList = () => {
                         onChange={handleSearchChange}
                     />
                 </div>
+            </div>
+            <div className="product-list">
                 <table>
                     <thead>
                         <tr>
@@ -119,7 +120,6 @@ const ProductList = () => {
                             <th>Loại sản phẩm</th>
                             <th>Giá sản phẩm</th>
                             <th>Giá sản phẩm (khuyến mãi)</th>
-                            <th></th>
                         </tr>
                     </thead>
                     {filteredProducts.length === 0 ? (
@@ -133,7 +133,6 @@ const ProductList = () => {
                                     <td>{product.productcategory_name}</td>
                                     <td>{product.product_price}</td>
                                     <td>{product.product_promotionprice}</td>
-                                    <td><button className="btn btn-danger">Xóa</button></td>
                                 </tr>
                             ))}
                         </tbody>

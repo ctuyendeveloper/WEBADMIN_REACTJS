@@ -44,7 +44,9 @@ try {
     $nameproduct = $data->nameproduct;
     $productcategory = $data->productcategory;
     $productprice = $data->productprice;
+    $productdescribe = $data->productdescribe;
     $productpricemotion = $data->productpricemotion;
+    $productcategoryid = $data->productcategoryid;
     $images = $data->images; // Mảng chứa các URL ảnh
     $id = $_GET['id'];
 
@@ -52,7 +54,7 @@ try {
     $checkProductQuery = "SELECT COUNT(*) AS count FROM product WHERE product_id = $id";
     $stmt = $dbConn->prepare($checkProductQuery);
     $stmt->execute();
-    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);  
 
     if ($row['count'] > 0) {
         // Tiến hành cập nhật dữ liệu cho sản phẩm trong bảng product
@@ -61,7 +63,9 @@ try {
                                SET product.product_name = '$nameproduct', 
                                    productcategory.productcategory_name = '$productcategory', 
                                    product.product_price = '$productprice', 
-                                   product.product_promotionprice = '$productpricemotion'
+                                   product.product_promotionprice = '$productpricemotion',
+                                   product.productcategory_id = '$productcategoryid',
+                                   product.product_describe = '$productdescribe'
                                WHERE product.product_id = $id";
         $stmt = $dbConn->prepare($updateProductQuery);
         $stmt->execute();
@@ -92,11 +96,17 @@ try {
         }
 
         // Trả về thông báo
-        echo json_encode(array('message' => 'Cập nhật sản phẩm và thêm mới ảnh thành công.'));
+        echo json_encode(array(
+            "status" => true, // login thành công,
+            'message' => 'Cập nhật sản phẩm và thêm mới ảnh thành công.'));
     } else {
         // Trả về thông báo lỗi nếu sản phẩm không tồn tại
-        echo json_encode(array('message' => 'Sản phẩm không tồn tại.'));
+        echo json_encode(array(
+            "status" => false, // login thành công,
+            'message' => 'Sản phẩm không tồn tại.'));
     }
 } catch (\Throwable $th) {
-    echo json_encode(array('message' => $th->getMessage()));
+    echo json_encode(array(
+        "status" => false, // login thành công,
+        'message' => $th->getMessage()));
 }

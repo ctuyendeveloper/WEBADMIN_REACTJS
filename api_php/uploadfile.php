@@ -13,17 +13,24 @@
     
         // Kiểm tra xem $_FILES['image'] có tồn tại không
         if(isset($_FILES['image'])){
-            $fileName = $_FILES['image']['name'];
-            $fileTmpName  = $_FILES['image']['tmp_name'];
-            $uploadPath = $currentDirectory . $uploadDirectory . basename($fileName);
-            
-            // upload file
-            move_uploaded_file($fileTmpName, $uploadPath);
+            $uploadDirectory = "/uploads/";
+            $uploadPaths = [];
+        
+            foreach ($_FILES['image']['tmp_name'] as $key => $tmp_name) {
+                $fileName = $_FILES['image']['name'][$key];
+                $fileTmpName = $_FILES['image']['tmp_name'][$key];
+                $uploadPath = $currentDirectory . $uploadDirectory . basename($fileName);
+                
+                // upload file
+                move_uploaded_file($fileTmpName, $uploadPath);
+                $uploadPaths[] = "http://127.0.0.1:8686/uploads/".$fileName;
+            }
+        
             echo json_encode(
                 array(
                     "error" => false,
                     "message" => "Upload successful",
-                    "path" => "http://127.0.0.1:8686/uploads/".$fileName
+                    "paths" => $uploadPaths
                 )
             );
         } else {
@@ -31,8 +38,8 @@
             echo json_encode(
                 array(
                     "error" => true,
-                    "message" => "Image file not provided",
-                    "path" => null
+                    "message" => "Image files not provided",
+                    "paths" => []
                 )
             );
         }
