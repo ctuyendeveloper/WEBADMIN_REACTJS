@@ -72,21 +72,27 @@ const ProductList = () => {
 
 
     return (
-        <div className="full">
+       <div className="full">
             <div className="top">
-                <a href="/"><img src={Logo} alt="Mô tả của ảnh" height={80} width={150} /></a>
+                <a href="/"><img src={Logo} alt="Mô tả của ảnh" height={80} width={150}/></a>
                 <a href="/profile" className='profile'><p>373982102</p></a>
             </div>
             <nav className="navbar">
-                <ul className="navbar-nav">
+                <ul>
                     <li className="nav-item">
-                        <NavLink to="/" className="nav-link">Tổng quan</NavLink>
+                    <NavLink to="/" className="nav-link" style={{color: '#fff'}}>Tổng quan</NavLink>  
+                        <ul id='submenu'> 
+                        <li><NavLink to="/" className="nav-link" style={{color: '#fff'}}>Tổng quan</NavLink>  </li>
+                            <li><NavLink to="/" className="nav-link" style={{color: '#000'}}>Tổng quan</NavLink>  </li>
+                            <li><NavLink to="/" className="nav-link" style={{color: '#000'}}>Tổng quan</NavLink>  </li>
+                        </ul>  
+                    </li>
+                    
+                    <li className="nav-item">
+                    <NavLink to="/list-product" className="nav-link" style={{color: '#fff'}}>Sản phẩm</NavLink>
                     </li>
                     <li className="nav-item">
-                        <NavLink to="/list-product" className="nav-link" style={{ color: '#fff' }}>Sản phẩm</NavLink>
-                    </li>
-                    <li className="nav-item">
-                        <NavLink to="/list-hoadon" className="nav-link" style={{ color: '#fff' }}>Hóa Đơn</NavLink>
+                        <NavLink to="/list-hoadon" className="nav-link" style={{color: '#fff'}}>Hóa Đơn</NavLink>
                     </li>
                     <li className="nav-item">
                         <NavLink to="/list-khachhang" className="nav-link">Khách Hàng</NavLink>
