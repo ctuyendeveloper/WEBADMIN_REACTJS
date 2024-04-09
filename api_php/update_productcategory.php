@@ -1,6 +1,6 @@
 <?php
 header("Content-Type: application/json; charset=UTF-8");
-header("Access-Control-Allow-Methods: POST");
+header("Access-Control-Allow-Methods: PUT");
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
@@ -10,7 +10,7 @@ include_once './connection.php';
 
 
     try {
-        if ($_SERVER["REQUEST_METHOD"]=="POST") {
+        if ($_SERVER["REQUEST_METHOD"]=="PUT") {
             $data = json_decode(file_get_contents("php://input"));
 
             $id = $data->PRODUCTCATEGORY_ID; // Assuming you have an 'id' field in your update request
