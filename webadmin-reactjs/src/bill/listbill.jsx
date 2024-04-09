@@ -2,15 +2,13 @@ import React, { useState, useEffect } from 'react';
 import AxiosInstance from '../helper/AxiosInstance';
 import { NavLink } from 'react-router-dom'; // Import NavLink để tạo các tab chuyển hướng
 import './css/ProductList.css'; // Import CSS file for styling
-import './css/addproduct.css'; // Import CSS file for styling
+// import './css/addproduct.css'; // Import CSS file for styling
 import Logo from '../image/logo.png'
-import AddProductDialog from './addproduct'; // Import component dialog thêm mới sản phẩm
-import DetailProductDialog from './detailproduct';
+// import AddProductDialog from './addproduct'; // Import component dialog thêm mới sản phẩm
 import Profile from '../admin/profiledialog'
+import DetailCPN from './detail';
 
-const ProductList = (props) => {
-
-    const [userData, setUserData] = useState(props); // State để lưu thông tin người dùng
+const BillList = () => {
 
     const [products, setProducts] = useState([]); // State để lưu trữ dữ liệu sản phẩm
     const [searchTerm, setSearchTerm] = useState(''); // State để lưu trữ từ khóa tìm kiếm
@@ -33,14 +31,14 @@ const ProductList = (props) => {
 
 
 
+
     useEffect(() => {
         const fetchProducts = async () => {
             try {
                 // Gọi API để lấy dữ liệu sản phẩm
-                const response = await AxiosInstance().get('get-listproduct.php')
+                const response = await AxiosInstance().get('getlistbill.php')
                 setProducts(response); // Cập nhật state với dữ liệu sản phẩm từ API
-                // console.log('TEST user', user)
-                console.log()
+                console.log(response)
             } catch (error) {
                 console.error('Error fetching products:', error);
             }
@@ -57,7 +55,7 @@ const ProductList = (props) => {
 
     // Lọc sản phẩm theo từ khóa tìm kiếm
     const filteredProducts = products.filter(product =>
-        product.product_name.toLowerCase().includes(searchTerm.toLowerCase())
+        product.customer_name.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     const openAddProductDialog = () => {
@@ -92,8 +90,7 @@ const ProductList = (props) => {
             <div className="top">
                 <a href="/"><img src={Logo} alt="Mô tả của ảnh" height={80} width={150} /></a>
                 <a className='profile' onClick={openProfileDialog}><p>373982102</p></a>
-                {/* <div className={`overlay ${showOverlay ? 'show-overlay' : ''}`}></div> Overlay */}
-                {showProfileDialog && <Profile userData={userData} onClose={closeProfileDialog}/>}
+                {showProfileDialog && <Profile onClose={closeProfileDialog} />}
             </div>
             <nav className="navbar">
                 <ul className="navbar-nav">
@@ -115,11 +112,9 @@ const ProductList = (props) => {
                 </ul>
             </nav>
             <div className='sanphamchucnang'>
-                <h2>Sản Phẩm</h2>
+                <h2>Danh sách hóa đơn</h2>
                 <div className="search-bar">
-                    <button className="add-button" onClick={openAddProductDialog}>Thêm mới sản phẩm</button>
-                    <div className={`overlay ${showOverlay ? 'show-overlay' : ''}`}></div> {/* Overlay */}
-                    {showAddProductDialog && <AddProductDialog onClose={closeAddProductDialog} />}
+                <div className={`overlay ${showOverlay ? 'show-overlay' : ''}`}></div> {/* Overlay */}
                     <input
                         className="search-input"
                         type="text"
@@ -133,33 +128,33 @@ const ProductList = (props) => {
                 <table>
                     <thead>
                         <tr>
-                            <th>Mã sản phẩm</th>
-                            <th>Tên sản phẩm</th>
-                            <th>Loại sản phẩm</th>
-                            <th>Giá sản phẩm</th>
-                            <th>Giá sản phẩm (khuyến mãi)</th>
+                            <th>Mã hóa đơn</th>
+                            <th>Thời gian (tạo)</th>
+                            <th>Khách hàng</th>
+                            <th>Tổng tiền</th>
+                            <th>Trạng thái thanh toán</th>
                         </tr>
                     </thead>
                     {filteredProducts.length === 0 ? (
-                        <p>Không có sản phẩm nào được tìm thấy.</p>
+                        <p>Không có hóa đơn nào được tìm thấy.</p>
                     ) : (
                         <tbody>
                             {filteredProducts.map(product => (
                                 <tr key={product.id} className="product-item" onClick={() => handleProductClick(product)}>
-                                    <td>{product.product_id}</td>
-                                    <td>{product.product_name}</td>
-                                    <td>{product.productcategory_name}</td>
-                                    <td>{product.product_price}</td>
-                                    <td>{product.product_promotionprice}</td>
+                                    <td>{product.bill_id}</td>
+                                    <td>{product.bill_createdat}</td>
+                                    <td>{product.customer_name}</td>
+                                    <td>{product.orderdetail_price}</td>
+                                    <td>{product.bill_status}</td>
                                 </tr>
                             ))}
                         </tbody>
                     )}
                 </table>
             </div>
-            {selectedProduct && <DetailProductDialog product={selectedProduct} onClose={closeDetailProductDialog} editMode={editMode} />}
+            {selectedProduct && <DetailCPN product={selectedProduct} onClose={closeDetailProductDialog} editMode={editMode} />}
         </div>
     );
 };
 
-export default ProductList;
+export default BillList;

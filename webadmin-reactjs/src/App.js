@@ -6,6 +6,8 @@ import React, { useState } from 'react';
 import Login from './admin/Login'
 import Main from './product/main'
 import ListProduct from './product/listproduct2'
+import ListBill from './bill/listbill'
+import Profile from './admin/profiledialog'
 
 function App() {
 
@@ -61,8 +63,10 @@ function App() {
           </Route>
           
           <Route element={<ProtectedRoute/>}>
-            <Route path="/" element={<Main user={user}/>} />
-            <Route path="/list-product" element={<ListProduct user={user}/>} />
+            <Route path="/" element={<Main />} />
+            <Route path="/list-product" element={<ListProduct user={user} />} />
+            <Route path="/list-bill" element={<ListBill/>}/>
+            <Route path="/profile" element={<Profile user={user}/>} />
             {/* <Route path="/addtp" element={<Addtp user={user}/>} />
             <Route path="/edittp/:id" element={<Edittp user={user}/>} />
             <Route path="/add" element={<Add user={user}/>} />

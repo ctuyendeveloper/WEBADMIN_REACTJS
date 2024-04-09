@@ -1,0 +1,50 @@
+/* Phần tổng thể của chi tiết hóa đơn */
+.detail-product-dialog {
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #f4f4f4;
+    max-width: 600px;
+    margin: 0 auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Hiệu ứng bóng đổ */
+}
+
+/* Tiêu đề */
+.detail-product-dialog h3 {
+    margin-top: 0;
+    font-size: 24px;
+    color: #333;
+    text-align: center; /* Căn giữa tiêu đề */
+}
+
+/* Phần tổ chức thông tin */
+.cotcha {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* Các cột */
+.cot1, .cot2, .cot3, .cotkhachhang {
+    flex: 1 1 100%;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Hiệu ứng bóng đổ */
+}
+
+/* Định dạng cho các label */
+label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #555; /* Màu sắc văn bản */
+}
+
+/* Phần chi tiết sản phẩm */
+.cotkhachhang {
+    width: 40%;
+    background-color: #f1f1f1; /* Màu sắc nền */
+    border-left: 5px solid #ccc;
+}
+
+/* Nút đóng */

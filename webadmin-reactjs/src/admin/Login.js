@@ -19,7 +19,7 @@ const Login = (props) => {
         try {
             const body = {phone, password}
             console.log(body)
-            const result = await AxiosInstance().post('/login-admin.php', body)
+            const result = await AxiosInstance().post('login-admin.php', body)
             console.log(result.user);
             if(result.status)
             {

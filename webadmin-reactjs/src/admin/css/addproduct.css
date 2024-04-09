@@ -1,0 +1,208 @@
+.add-product-dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    opacity: 0;
+    animation: fadeIn 0.3s forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+
+.add-product-dialog h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 1.4em;
+}
+
+.add-product-dialog label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.add-product-dialog input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+
+.add-product-dialog button {
+    padding: 12px 24px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-right: 10px;
+    transition: background-color 0.3s;
+}
+
+.add-product-dialog button:last-child {
+    margin-right: 0;
+}
+
+.add-product-dialog button:hover {
+    background-color: #0056b3;
+}
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Màu nền đen với độ mờ 50% */
+    z-index: 999; /* Đảm bảo overlay luôn ở trên dialog */
+    opacity: 0; /* Bắt đầu với opacity 0 */
+    pointer-events: none; /* Không thể thao tác với overlay khi opacity = 0 */
+    transition: opacity 0.3s; /* Hiệu ứng transition */
+}
+
+.show-overlay {
+    opacity: 1; /* Hiển thị overlay */
+    pointer-events: auto; /* Cho phép thao tác với overlay */
+}
+
+.show-dialog {
+    overflow: hidden; /* Ngăn chặn cuộn trang khi dialog mở */
+}
+
+.add-product-dialog label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.add-product-dialog input[type="text"],
+.add-product-dialog input[type="file"] {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.add-product-dialog .image-preview {
+    display: flex;
+    flex-wrap: wrap;
+}
+.image-slider {
+    max-width: 100%; /* Đảm bảo hình ảnh không vượt quá kích thước của dialog */
+    overflow-x: scroll; /* Kích hoạt thanh cuộn ngang khi nội dung vượt quá kích thước */
+    white-space: nowrap; /* Ngăn các hình ảnh xuống dòng */
+    margin-bottom: 20px; /* Thêm margin dưới để tạo khoảng cách với các phần tử khác */
+    scroll-snap-type: x mandatory; /* Đảm bảo các hình ảnh sẽ lướt ngang một cách tự nhiên */
+    scroll-behavior: smooth; /* Tạo hiệu ứng cuộn mượt mà */
+}
+
+/* CSS cho các hình ảnh trong container */
+.image-slider img {
+    max-width: 100%; /* Đảm bảo hình ảnh không vượt quá kích thước của dialog */
+    display: inline-block; /* Hiển thị các hình ảnh theo hàng ngang */
+    margin-right: 10px; /* Thêm margin bên phải giữa các hình ảnh */
+    scroll-snap-align: center; /* Đảm bảo các hình ảnh sẽ được lướt ngang đến vị trí trung tâm */
+}
+
+.add-product-dialog .image-preview img {
+    max-width: 100%; /* Đảm bảo hình ảnh không vượt quá kích thước của dialog */
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+
+.add-product-dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    opacity: 0;
+    animation: fadeIn 0.3s forwards;
+    max-width: 80%;
+    max-height: 80%;
+    overflow: auto;
+}
+
+.add-product-dialog h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 1.4em;
+}
+
+.add-product-dialog label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.add-product-dialog input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.add-product-dialog button {
+    padding: 12px 24px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-right: 10px;
+    transition: background-color 0.3s;
+}
+
+.add-product-dialog button:last-child {
+    margin-right: 0;
+}
+
+.add-product-dialog button:hover {
+    background-color: #0056b3;
+}
+
+.image-slider {
+    max-width: 100%;
+    overflow-x: scroll;
+    white-space: nowrap;
+    margin-bottom: 20px;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+}
+
+.image-slider img {
+    max-width: 100%;
+    display: inline-block;
+    margin-right: 10px;
+    scroll-snap-align: center;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}

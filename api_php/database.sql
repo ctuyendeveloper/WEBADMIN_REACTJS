@@ -36,15 +36,15 @@ USE `DATN`;
         FOREIGN KEY (`ORDERDETAIL_ID`) REFERENCES `ORDERDETAIL`(`ORDERDETAIL_ID`)
     );
     CREATE TABLE
-    IF NOT EXISTS `ORDER` (
-        `ORDER_ID` int(11) NOT NULL AUTO_INCREMENT,
-        `ORDER_CREATEDAT` datetime DEFAULT NOW() NOT NULL,
-        `ORDER_STATUS` int(1) NOT NULL,
-        `ORDER_PAYMENTMETHOD` int(1) NOT NULL,
-        `ORDER_NOTE` varchar(255),
+    IF NOT EXISTS `BILL` (
+        `BILL_ID` int(11) NOT NULL AUTO_INCREMENT,
+        `BILL_CREATEDAT` datetime DEFAULT NOW() NOT NULL,
+        `BILL_STATUS` int(1) NOT NULL,
+        `BILL_PAYMENTMETHOD` int(1) NOT NULL,
+        `BILL_NOTE` varchar(255),
         `ADDRESS_ID` int(11) NOT NULL,
         `CUSTOMER_ID` int(11) NOT NULL,
-        PRIMARY KEY (`ORDER_ID`),
+        PRIMARY KEY (`BILL_ID`),
         FOREIGN KEY (`ADDRESS_ID`) REFERENCES `ADDRESS`(`ADDRESS_ID`),
         FOREIGN KEY (`CUSTOMER_ID`) REFERENCES `CUSTOMER`(`CUSTOMER_ID`)
     );
@@ -54,10 +54,10 @@ USE `DATN`;
         `ORDERDETAIL_QUANTITY` int(11) NOT NULL,
         `ORDERDETAIL_PRICE` float(20) NOT NULL,
         `PRODUCT_ID` int(11) NOT NULL,
-        `ORDER_ID` int(11) NOT NULL,
+        `BILL_ID` int(11) NOT NULL,
         PRIMARY KEY (`ORDERDETAIL_ID`),
         FOREIGN KEY (`PRODUCT_ID`) REFERENCES `PRODUCT`(`PRODUCT_ID`),
-        FOREIGN KEY (`ORDER_ID`) REFERENCES `ORDER`(`ORDER_ID`)
+        FOREIGN KEY (`BILL_ID`) REFERENCES `BILL`(`BILL_ID`)
     );
     CREATE TABLE
     IF NOT EXISTS `PRODUCT` (
@@ -185,12 +185,12 @@ VALUES (
     );
 
     INSERT INTO
-    `ORDER` (
-        `ORDER_ID`,
-        `ORDER_CREATEDAT`,
-        `ORDER_STATUS`,
-        `ORDER_PAYMENTMETHOD`,
-        `ORDER_NOTE`,
+    `BILL` (
+        `BILL_ID`,
+        `BILL_CREATEDAT`,
+        `BILL_STATUS`,
+        `BILL_PAYMENTMETHOD`,
+        `BILL_NOTE`,
         `ADDRESS_ID`,
         `CUSTOMER_ID`
     )
@@ -209,7 +209,7 @@ VALUES (
         `ORDERDETAIL_QUANTITY`,
         `ORDERDETAIL_PRICE`,
         `PRODUCT_ID`,
-        `ORDER_ID`
+        `BILL_ID`
     )
 VALUES (
         1,

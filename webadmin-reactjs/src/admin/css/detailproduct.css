@@ -1,4 +1,4 @@
-.detail-product-dialog {
+.detail-admin-dialog {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -13,6 +13,7 @@
     max-width: 80%; /* Đặt kích thước tối đa */
     max-height: 80%;
     overflow: auto; /* Thêm thanh cuộn nếu nội dung quá lớn */
+    
 }
 .modal-overlay {
     position: fixed;
@@ -27,7 +28,7 @@
     overflow: hidden; /* Vô hiệu hóa cuộn trang */
 }
 
-.detail-product-dialog img {
+.detail-admin-dialog img {
     max-width: 100%; /* Đảm bảo hình ảnh không vượt quá kích thước của dialog */
     height: auto;
     border-radius: 10px; /* Bo tròn các góc của hình ảnh */
@@ -46,18 +47,18 @@
     }
 }
 
-.detail-product-dialog h3 {
+.detail-admin-dialog h3 {
     margin-top: 0;
     margin-bottom: 20px;
     font-size: 1.4em;
 }
 
-.detail-product-dialog label {
+.detail-admin-dialog label {
     display: block;
     margin-bottom: 5px;
 }
 
-.detail-product-dialog input {
+.detail-admin-dialog input {
     width: 100%;
     padding: 8px;
     margin-bottom: 10px;
@@ -66,7 +67,7 @@
     box-sizing: border-box;
 }
 
-.detail-product-dialog button {
+.detail-admin-dialog button {
     padding: 12px 24px;
     background-color: #007bff;
     color: #fff;
@@ -77,11 +78,11 @@
     transition: background-color 0.3s;
 }
 
-.detail-product-dialog button:hover {
+.detail-admin-dialog button:hover {
     background-color: #0056b3;
 }
 
-.detail-product-dialog button:last-child {
+.detail-admin-dialog button:last-child {
     margin-right: 0;
 }
 
@@ -98,6 +99,7 @@
 .image-slider img {
     display: inline-block; /* Hiển thị các hình ảnh theo hàng ngang */
     margin-right: 10px; /* Thêm margin bên phải giữa các hình ảnh */
+    scroll-snap-align: center; /* Đảm bảo các hình ảnh sẽ được lướt ngang đến vị trí trung tâm */
 }
 /* Style cho label */
 label {
@@ -139,8 +141,7 @@ select {
     color: #007bff;
   }
 
-.detail-product-dialog .btnxoa {
-    background-color: #dc3545; /* Màu nền của nút */
+.detail-admin-dialog .btnxoa {
     color: #fff; /* Màu chữ */
     border: none; /* Loại bỏ đường viền */
     padding: 10px 20px; /* Kích thước padding */
@@ -148,11 +149,29 @@ select {
     border-radius: 4px; /* Độ cong của góc */
     margin-right: 10px; /* Khoảng cách phía bên phải */
 }
-
-.detail-product-dialog .btnxoa:hover {
-    background-color: #c82333; /* Màu nền khi di chuột qua */
+.detail-admin-dialog2 {
+    display: flex;
+    align-items: flex-start; /* Dọc theo trục chính */
+    justify-content: space-between; /* Các thành phần được căn ra hai bên */
 }
 
-.detail-product-dialog .btnxoa:focus {
-    outline: none; /* Loại bỏ đường viền khi được focus */
+.thongtin {
+    flex: 1; /* Căn chiều rộng tự động cho phần thông tin */
+    display: flex;
+    flex-direction: column; /* Thành phần trong thongtin được sắp xếp dọc */
+    gap: 10px; /* Khoảng cách giữa các thành phần trong thongtin */
+}
+
+.avatar {
+    padding: 5%;
+    width: 400px; /* Độ rộng cố định cho phần hình ảnh */
+    height: 470px;
+    display: flex;
+    flex-direction: column; /* Thành phần trong avatar được sắp xếp dọc */
+    gap: 10px; /* Khoảng cách giữa các thành phần trong avatar */
+}
+
+.avatar img {
+    max-height: 80%; /* Ảnh không vượt quá kích thước của phần tử cha */
+    max-width: 100%; /* Ảnh không vượt quá kích thước của phần tử cha */
 }
