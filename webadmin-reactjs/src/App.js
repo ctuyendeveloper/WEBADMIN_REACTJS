@@ -1,26 +1,67 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { BrowserRouter as Router, Route, 
-  Routes, Navigate, Outlet } from 'react-router-dom'
-import React, { useState } from 'react';
-
-
-import Admin from './component/user/trangchu'
-import Login from './component/LoginSignup/Login'
-import ThongKe from './component/thongke/Thongke'
-import Order from './component/order/Order'
+import logo from './logo.svg';
+import './App.css';
 
 function App() {
+
+  // doc thong tin user tu localStorage
+  const getUserFromLocalStorage = () => {
+    const userString = localStorage.getItem('user');
+    if (userString)
+    {
+      return JSON.parse(userString);
+    }
+    return null;
+  }
+
+  const saveUserToLocalStorage = (userInfo) => {
+    if (!userInfo)
+    {
+      localStorage.removeItem('user');
+      setUser(null);
+      return;
+    }
+    localStorage.setItem('user', JSON.stringify(userInfo));
+    setUser(userInfo);
+  }
+
+  const [user, setUser] = useState(getUserFromLocalStorage);
+
+  // Những componet phải đăng nhập mới truy cập được
+  const ProtectedRoute = () => {
+    if(user)
+    {
+      return <Outlet/>
+    }
+    return <Navigate to="/login"/>
+  }
+
+  // Những componet không đăng nhập truy cập được
+  
+  const PubliceRoute = () => {
+    if(user)
+    {
+    return <Navigate to="/"/>
+    }
+    return <Outlet/>
+  }
+
   return (
-  
-      <Router>
-        <Routes>
-       <Route path='/Admin' element={<Admin/>}/>
-       <Route path='/Login' element={<Login/>}/>
-       <Route path='/ThongKe' element={<ThongKe/>}/>
-       <Route path='/Order' element={<Order/>}/>
-        </Routes>
-      </Router>
-  
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          Edit <code>src/App.js</code> and save to reload.
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+      </header>
+    </div>
   );
 }
 

@@ -1,0 +1,7 @@
+tbody.list {
+  background-color: #c36e6e; /* Màu nền khi hover vào hàng */
+}
+
+tbody:hover {
+  color: #000; /* Màu chữ khi hover vào hàng */
+}
