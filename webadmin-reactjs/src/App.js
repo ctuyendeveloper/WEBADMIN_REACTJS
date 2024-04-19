@@ -7,7 +7,8 @@ import Login from './admin/Login'
 import Main from './product/main'
 import ListProduct from './product/listproduct2'
 import ListBill from './bill/listbill'
-import Profile from './admin/profiledialog'
+import ListCustomer from './customer/customer'
+import Resetpw from './customer/resetpassword'
 
 function App() {
 
@@ -60,13 +61,14 @@ function App() {
         {/* <Route path="/reset-password" element={<ResetPassword/>} /> */}
           <Route element={<PubliceRoute/>}>
             <Route path="/login" element={<Login saveUser={saveUserToLocalStorage}/>} />
+            <Route path="/resetpassword" element={<Resetpw />} />
           </Route>
           
           <Route element={<ProtectedRoute/>}>
-            <Route path="/" element={<Main />} />
+            <Route path="/" element={<Main user={user}/>} />
             <Route path="/list-product" element={<ListProduct user={user} />} />
-            <Route path="/list-bill" element={<ListBill/>}/>
-            <Route path="/profile" element={<Profile user={user}/>} />
+            <Route path="/list-bill" element={<ListBill user={user}/>}/>
+            <Route path="/list-customer" element={<ListCustomer user={user}/>} />
             {/* <Route path="/addtp" element={<Addtp user={user}/>} />
             <Route path="/edittp/:id" element={<Edittp user={user}/>} />
             <Route path="/add" element={<Add user={user}/>} />

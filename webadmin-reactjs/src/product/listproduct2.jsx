@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import AxiosInstance from '../helper/AxiosInstance';
 import { NavLink } from 'react-router-dom'; // Import NavLink để tạo các tab chuyển hướng
 import './css/ProductList.css'; // Import CSS file for styling
-import './css/addproduct.css'; // Import CSS file for styling
 import Logo from '../image/logo.png'
 import AddProductDialog from './addproduct'; // Import component dialog thêm mới sản phẩm
 import DetailProductDialog from './detailproduct';
@@ -40,7 +39,7 @@ const ProductList = (props) => {
                 const response = await AxiosInstance().get('get-listproduct.php')
                 setProducts(response); // Cập nhật state với dữ liệu sản phẩm từ API
                 // console.log('TEST user', user)
-                console.log()
+                console.log(response)
             } catch (error) {
                 console.error('Error fetching products:', error);
             }
@@ -91,23 +90,14 @@ const ProductList = (props) => {
        <div className="full">
             <div className="top">
                 <a href="/"><img src={Logo} alt="Mô tả của ảnh" height={80} width={150} /></a>
-                <a className='profile' onClick={openProfileDialog}><p>373982102</p></a>
+                <a className='profile' onClick={openProfileDialog}><p>{userData.user.ADMIN_PHONE}</p></a>
                 {/* <div className={`overlay ${showOverlay ? 'show-overlay' : ''}`}></div> Overlay */}
                 {showProfileDialog && <Profile userData={userData} onClose={closeProfileDialog}/>}
             </div>
             <nav className="navbar">
-                <ul>
+                <ul className="navbar-nav">
                     <li className="nav-item">
-                    <NavLink to="/" className="nav-link" style={{color: '#fff'}}>Tổng quan</NavLink>  
-                        <ul id='submenu'> 
-                        <li><NavLink to="/" className="nav-link" style={{color: '#fff'}}>Tổng quan</NavLink>  </li>
-                            <li><NavLink to="/" className="nav-link" style={{color: '#000'}}>Tổng quan</NavLink>  </li>
-                            <li><NavLink to="/" className="nav-link" style={{color: '#000'}}>Tổng quan</NavLink>  </li>
-                        </ul>  
-                    </li>
-                    
-                    <li className="nav-item">
-                    <NavLink to="/list-product" className="nav-link" style={{color: '#fff'}}>Sản phẩm</NavLink>
+                        <NavLink to="/" className="nav-link">Tổng quan</NavLink>
                     </li>
                     <li className="nav-item">
                         <NavLink to="/list-product" className="nav-link" style={{ color: '#fff' }}>Sản phẩm</NavLink>
@@ -116,7 +106,7 @@ const ProductList = (props) => {
                         <NavLink to="/list-bill" className="nav-link" style={{ color: '#fff' }}>Hóa Đơn</NavLink>
                     </li>
                     <li className="nav-item">
-                        <NavLink to="/list-khachhang" className="nav-link">Khách Hàng</NavLink>
+                        <NavLink to="/list-customer" className="nav-link">Khách Hàng</NavLink>
                     </li>
                     <li className="nav-item">
                         <NavLink to="/baocao" className="nav-link">Báo cáo</NavLink>

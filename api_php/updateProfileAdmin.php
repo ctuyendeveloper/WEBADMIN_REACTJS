@@ -50,7 +50,7 @@ try {
 
     // cập nhật dữ liệu vào database
 
-    $sqlQuery = "UPDATE admin SET admin_phone = $phone, admin_name = '$name', admin_address = '$address', admin_image = '$image', admin_email = '$email' WHERE admin_id = $id";
+    $sqlQuery = "UPDATE admin SET admin_phone = '$phone', admin_name = '$name', admin_address = '$address', admin_image = '$image', admin_email = '$email' WHERE admin_id = $id";
 
     // thực thi câu lệnh pdo
 
@@ -58,7 +58,11 @@ try {
     $stmt->execute();
 
     // trả về thông báo
-    echo json_encode(array('message' => 'Cập nhật tin tức thành công.'));
+    echo json_encode(array(
+        "status" => true, // cap nhat thanh cong
+        'message' => 'Cập nhật tin tức thành công.'));
 } catch (\Throwable $th) {
-    echo json_encode(array('message' => 'Cập nhật tin tức thất bại.'));
+    echo json_encode(array(
+        "status" => false, // cap nhat khong thanh cong
+        'message' => 'Cập nhật tin tức thất bại.'));
 }

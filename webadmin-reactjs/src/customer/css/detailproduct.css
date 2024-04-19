@@ -1,0 +1,158 @@
+.detail-product-dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    opacity: 0;
+    animation: fadeIn 0.3s forwards;
+    max-width: 80%; /* Đặt kích thước tối đa */
+    max-height: 80%;
+    overflow: auto; /* Thêm thanh cuộn nếu nội dung quá lớn */
+}
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Màu nền mờ */
+    z-index: 999; /* Đảm bảo modal overlay hiển thị trên cùng */
+}
+.modal-open {
+    overflow: hidden; /* Vô hiệu hóa cuộn trang */
+}
+
+.detail-product-dialog img {
+    max-width: 100%; /* Đảm bảo hình ảnh không vượt quá kích thước của dialog */
+    height: auto;
+    border-radius: 10px; /* Bo tròn các góc của hình ảnh */
+    cursor: pointer;
+    transition: transform 0.2s; /* Thêm hiệu ứng chuyển động */
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+.detail-product-dialog h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 1.4em;
+}
+
+.detail-product-dialog label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.detail-product-dialog input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.detail-product-dialog button {
+    padding: 12px 24px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-right: 10px;
+    transition: background-color 0.3s;
+}
+
+.detail-product-dialog button:hover {
+    background-color: #0056b3;
+}
+
+.detail-product-dialog button:last-child {
+    margin-right: 0;
+}
+
+/* Thêm CSS cho container của các hình ảnh */
+.image-slider {
+    overflow-x: scroll; /* Kích hoạt thanh cuộn ngang khi nội dung vượt quá kích thước */
+    white-space: nowrap; /* Ngăn các hình ảnh xuống dòng */
+    margin-bottom: 20px; /* Thêm margin dưới để tạo khoảng cách với các phần tử khác */
+    scroll-snap-type: x mandatory; /* Đảm bảo các hình ảnh sẽ lướt ngang một cách tự nhiên */
+    scroll-behavior: smooth; /* Tạo hiệu ứng cuộn mượt mà */
+}
+
+/* CSS cho các hình ảnh trong container */
+.image-slider img {
+    display: inline-block; /* Hiển thị các hình ảnh theo hàng ngang */
+    margin-right: 10px; /* Thêm margin bên phải giữa các hình ảnh */
+}
+/* Style cho label */
+label {
+    margin-bottom: 8px;
+    display: block;
+  }
+  
+  /* Style cho dropdown selection */
+select {
+    appearance: none;
+    outline: none;
+    border: 1px solid #ccc;
+    padding: 8px 32px 8px 8px; /* Thêm padding bên phải cho chỗ để đặt biểu tượng mũi tên */
+    font-size: 16px;
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #fff;
+    cursor: pointer;
+    position: relative; /* Để tạo vùng chứa cho biểu tượng mũi tên */
+  }
+  
+  /* Style cho dropdown arrow */
+  select:after {
+    content: '\25BC';  /* Unicode của mũi tên dropdown */
+    position: absolute;
+    top: calc(50% - 8px);
+    right: 10px;
+    pointer-events: none;
+  }
+  
+  /* Style khi hover lên dropdown arrow */
+  select:hover:after {
+    color: #555;
+  }
+  
+  /* Style khi focus vào dropdown arrow */
+  select:focus:after {
+    color: #007bff;
+  }
+
+.detail-product-dialog .btnxoa {
+    background-color: #dc3545; /* Màu nền của nút */
+    color: #fff; /* Màu chữ */
+    border: none; /* Loại bỏ đường viền */
+    padding: 10px 20px; /* Kích thước padding */
+    cursor: pointer; /* Đổi con trỏ khi di chuột vào nút */
+    border-radius: 4px; /* Độ cong của góc */
+    margin-right: 10px; /* Khoảng cách phía bên phải */
+}
+
+.detail-product-dialog .btnxoa:hover {
+    background-color: #c82333; /* Màu nền khi di chuột qua */
+}
+
+.detail-product-dialog .btnxoa:focus {
+    outline: none; /* Loại bỏ đường viền khi được focus */
+}

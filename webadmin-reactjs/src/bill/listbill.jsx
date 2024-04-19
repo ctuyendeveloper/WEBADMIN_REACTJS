@@ -8,7 +8,9 @@ import Logo from '../image/logo.png'
 import Profile from '../admin/profiledialog'
 import DetailCPN from './detail';
 
-const BillList = () => {
+const BillList = (props) => {
+    const [userData, setUserData] = useState(props); // State để lưu thông tin người dùng
+
 
     const [products, setProducts] = useState([]); // State để lưu trữ dữ liệu sản phẩm
     const [searchTerm, setSearchTerm] = useState(''); // State để lưu trữ từ khóa tìm kiếm
@@ -89,8 +91,8 @@ const BillList = () => {
         <div className="full">
             <div className="top">
                 <a href="/"><img src={Logo} alt="Mô tả của ảnh" height={80} width={150} /></a>
-                <a className='profile' onClick={openProfileDialog}><p>373982102</p></a>
-                {showProfileDialog && <Profile onClose={closeProfileDialog} />}
+                <a className='profile' onClick={openProfileDialog}><p>{userData.user.ADMIN_PHONE}</p></a>
+                {showProfileDialog && <Profile userData={userData} onClose={closeProfileDialog} />}
             </div>
             <nav className="navbar">
                 <ul className="navbar-nav">
@@ -104,7 +106,7 @@ const BillList = () => {
                         <NavLink to="/list-bill" className="nav-link" style={{ color: '#fff' }}>Hóa Đơn</NavLink>
                     </li>
                     <li className="nav-item">
-                        <NavLink to="/list-khachhang" className="nav-link">Khách Hàng</NavLink>
+                        <NavLink to="/list-customer" className="nav-link">Khách Hàng</NavLink>
                     </li>
                     <li className="nav-item">
                         <NavLink to="/baocao" className="nav-link">Báo cáo</NavLink>

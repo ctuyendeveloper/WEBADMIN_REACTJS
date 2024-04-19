@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import AxiosInstance from '../helper/AxiosInstance';
 import './css/detailproduct.css'; // Import CSS file for styling
 
-const DetailProductDialog = ({ userData, onClose, editMode }) => {
+const DetailProductDialog = ({ userData, onClose }) => {
 
     // const [editedProduct, setEditedProduct] = useState(product);
     const [intervalId, setIntervalId] = useState(null);
@@ -70,34 +70,34 @@ const DetailProductDialog = ({ userData, onClose, editMode }) => {
 
         try {
             // Cập nhật thông tin sản phẩm
-            // const formData = new FormData();
-            // formData.append('nameproduct', editedProduct.product_name);
-            // formData.append('productcategory', editedProduct.productcategory_name);
-            // formData.append('productprice', editedProduct.product_price);
-            // formData.append('productpricemotion', editedProduct.product_promotionprice);
-            // formData.append('productcategoryid', product_category);
-            // formData.append('productdescribe', editedProduct.product_describe);
-            // // console.log(editedProduct.productcategory_id)
+            const formData = new FormData();
+            formData.append('name', user.ADMIN_NAME);
+            formData.append('phone', user.ADMIN_PHONE);
+            formData.append('address', user.ADMIN_ADDRESS);
+            formData.append('email', user.ADMIN_EMAIL);
+            formData.append('image', picture);
+            // console.log(editedProduct.productcategory_id)
 
-            // // Gửi ảnh mới
+            // Gửi ảnh mới
             // previewImages.forEach(image => {
             //     formData.append('images[]', image);
             // });
 
             // // Gọi API cập nhật sản phẩm
-            // const response = await AxiosInstance().put(`/updateproduct.php?id=${editedProduct.product_id}`, formData);
-            // console.log(response.status)
+            const response = await AxiosInstance().put(`/updateProfileAdmin.php?id=${user.ADMIN_ID}`, formData);
+            console.log(response.status)
 
-            // // Xử lý kết quả
-            // if (response.status) {
-            //     alert(response.message);
-            //     onClose();
-            //     window.location.href = '/list-product';
-            // } else {
-            //     console.error(response);
-            // }
+            // Xử lý kết quả
+            if (response.status) {
+                alert(response.message);
+                onClose();
+                localStorage.removeItem('user'); // Thay 'key' bằng tên của mục bạn muốn xóa trong local storage
+                window.location.href = '/';
+            } else {
+                console.error(response);
+            }
         } catch (error) {
-            // console.error('Error updating product:', error);
+            console.error('Error updating product:', error);
         }
     };
 
@@ -130,15 +130,10 @@ const DetailProductDialog = ({ userData, onClose, editMode }) => {
     // };
 
 
-    let saveChangesButton = null;
-    if (editMode) {
-        saveChangesButton = <button type="submit">Lưu Thay Đổi</button>;
-    }
-
     return (
         <div className="detail-admin-dialog">
             <h3>Thông tin tài khoản</h3>
-            <form onSubmit={handleSubmit} className="detail-admin-dialog2">
+            <form className="detail-admin-dialog2">
                 <div className="thongtin">
                     <div>
                         <label>Mã người dùng:</label>
@@ -173,7 +168,7 @@ const DetailProductDialog = ({ userData, onClose, editMode }) => {
                 {/* Thêm input cho phép chọn nhiều ảnh từ máy tính */}
             </form>
             <br />
-                <button type="button" className="btnxoa">Xóa Sản Phẩm</button>
+                <button type="button" onClick={handleSubmit}>Lưu thay đổi</button>
                 <button type="button" onClick={onClose}>Đóng</button>
         </div>
     );

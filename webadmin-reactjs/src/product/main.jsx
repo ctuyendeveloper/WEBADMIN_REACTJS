@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom'; // Import NavLink để tạo các tab chuyển hướng
-import './css/ProductList.css'; // Import CSS file for styling
 import Logo from '../image/logo.png'
 import Profile from '../admin/profiledialog'
 
-const ProductList = () => {
+const ProductList = (props) => {
+
+    const [userData, setUserData] = useState(props); // State để lưu thông tin người dùng
 
     const [showProfileDialog, setProfileDialog] = useState(false); // State để điều khiển hiển thị dialog
     const [showOverlay, setShowOverlay] = useState(false); // State để điều khiển hiển thị overlay
@@ -23,9 +24,9 @@ const ProductList = () => {
         <div className="full">
             <div className="top">
                 <a href="/"><img src={Logo} alt="Mô tả của ảnh" height={80} width={150}/></a>
-                <a className='profile' onClick={openProfileDialog}><p>373982102</p></a>
+                <a className='profile' onClick={openProfileDialog}><p>{userData.user.ADMIN_PHONE}</p></a>
                 <div className={`overlay ${showOverlay ? 'show-overlay' : ''}`}></div> {/* Overlay */}
-                {showProfileDialog && <Profile onClose={closeProfileDialog} />}
+                {showProfileDialog && <Profile userData={userData} onClose={closeProfileDialog} />}
             </div>
             <nav className="navbar">
                 <ul className="navbar-nav">
@@ -39,7 +40,7 @@ const ProductList = () => {
                         <NavLink to="/list-bill" className="nav-link" style={{color: '#fff'}}>Hóa Đơn</NavLink>
                     </li>
                     <li className="nav-item">
-                        <NavLink to="/list-khachhang" className="nav-link">Khách Hàng</NavLink>
+                        <NavLink to="/list-customer" className="nav-link">Khách Hàng</NavLink>
                     </li>
                     <li className="nav-item">
                         <NavLink to="/baocao" className="nav-link">Báo cáo</NavLink>

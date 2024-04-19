@@ -110,11 +110,6 @@
   /* flex-direction: column; */
 }
 
-.navbar-nav {
-
-  flex-direction: row;
-  list-style-type: none;
-}
 
 .nav-item {
 

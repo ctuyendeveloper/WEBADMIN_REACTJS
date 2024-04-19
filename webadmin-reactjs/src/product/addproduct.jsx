@@ -54,11 +54,12 @@ const AddProductDialog = ({ onClose }) => {
             formData.append('image[]', file);
         });
         setPreviewImages(imageArray); // Thêm các URL của các ảnh mới vào trong previewImages
-        const uploadResponse = await fetch("http://127.0.0.1:8686/uploadfile.php", {
+        const uploadResponse = await fetch("http://206.189.45.141/api/uploadfile.php", {
             method: "POST",
             body: formData,
         });
         const uploadResult = await uploadResponse.json();
+        console.log(uploadResult)
         setPreviewImages(uploadResult.paths)
     };
 

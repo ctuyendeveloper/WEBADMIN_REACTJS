@@ -4,12 +4,12 @@ USE `DATN`;
     CREATE TABLE
     IF NOT EXISTS `CUSTOMER` (
         `CUSTOMER_ID` int(11) NOT NULL AUTO_INCREMENT,
-        `CUSTOMER_EMAIL` varchar(255) UNIQUE NOT NULL,
-        `CUSTOMER_ADDRESS` varchar(255) NOT NULL,
-        `CUSTOMER_PHONE` int(11) UNIQUE NOT NULL,
+        `CUSTOMER_EMAIL` varchar(255) NOT NULL,
+        `CUSTOMER_ADDRESS` varchar(255),
+        `CUSTOMER_PHONE` int(11),
         `CUSTOMER_PASSWORD` varchar(255) NOT NULL,
-        `CUSTOMER_NAME` varchar(255) NOT NULL,
-        `CUSTOMER_IMAGE` varchar(255) NOT NULL,
+        `CUSTOMER_NAME` varchar(255),
+        `CUSTOMER_IMAGE` varchar(255),
         PRIMARY KEY (`CUSTOMER_ID`)
     );
 
@@ -97,7 +97,15 @@ USE `DATN`;
         `ADMIN_ADDRESS` varchar(255) NOT NULL,
         PRIMARY KEY (`ADMIN_ID`)
     );
-
+   CREATE TABLE
+    IF NOT EXISTS `password_resets` (
+        `id` int(11) NOT NULL AUTO_INCREMENT,
+        `email` varchar(255) NOT NULL,
+        `token` varchar(255) NOT NULL,
+        `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+        `available` tinyint(1) NOT NULL DEFAULT 1,
+        PRIMARY KEY (`id`)
+    ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
     -- tạo database
 
 -- thêm dữ liệu vào bảng USERS
