@@ -29,8 +29,14 @@ $stmt_bill = $dbConn->prepare($bill_sql);
 $stmt_bill->execute();
 $bill_result = $stmt_bill->fetch();
 
-// lấy tất cả dự liệu 
-echo "Tổng số sản phẩm: " . $product_result['PRODUCT_ID']."<br>";
-echo "Tổng số khách hàng: " . $customer_result['CUSTOMER_ID']."<br>";
-echo "Tổng số hóa đơn: " . $bill_result['BILL_ID']."<br>";
+
+// tạo 1 mảng data chứa 
+$data = [
+    'total_products' => $product_result['PRODUCT_ID'],
+    'total_customers' => $customer_result['CUSTOMER_ID'],
+    'total_bills' => $bill_result['BILL_ID']
+];
+
+// Trả về dữ liệu dưới dạng JSON
+echo json_encode($data);
 
