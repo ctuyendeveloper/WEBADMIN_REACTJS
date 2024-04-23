@@ -19,6 +19,7 @@ const BillList = (props) => {
     const [selectedProduct, setSelectedProduct] = useState(null); // State để lưu trữ sản phẩm được chọn
     const [editMode, setEditMode] = useState(false); // Thêm state cho chế độ chỉnh sửa
     const [showProfileDialog, setProfileDialog] = useState(false); // State để điều khiển hiển thị dialog
+    const [showSubMenu, setShowSubMenu] = useState(false); // State để điều khiển hiển thị submenu loại sản phẩm
 
     const openProfileDialog = () => {
         setProfileDialog(true);
@@ -28,6 +29,13 @@ const BillList = (props) => {
     const closeProfileDialog = () => {
         setProfileDialog(false);
         setShowOverlay(false);
+    };
+    const handleMouseEnter = () => {
+        setShowSubMenu(true);
+    };
+
+    const handleMouseLeave = () => {
+        setShowSubMenu(false);
     };
 
 
@@ -99,17 +107,20 @@ const BillList = (props) => {
                     <li className="nav-item">
                         <NavLink to="/" className="nav-link">Tổng quan</NavLink>
                     </li>
-                    <li className="nav-item">
-                        <NavLink to="/list-product" className="nav-link" style={{ color: '#fff' }}>Sản phẩm</NavLink>
+                    <li className="nav-item" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+                        <NavLink to="/list-product" className="nav-link" style={{color: '#fff'}}>Sản phẩm</NavLink>
+                        {showSubMenu && (
+                            <ul className="submenu">
+                                <NavLink to="/list-productcategory">Loại sản phẩm</NavLink>
+                                {/* Add more product types as needed */}
+                            </ul>
+                        )}
                     </li>
                     <li className="nav-item">
                         <NavLink to="/list-bill" className="nav-link" style={{ color: '#fff' }}>Hóa Đơn</NavLink>
                     </li>
                     <li className="nav-item">
                         <NavLink to="/list-customer" className="nav-link">Khách Hàng</NavLink>
-                    </li>
-                    <li className="nav-item">
-                        <NavLink to="/baocao" className="nav-link">Báo cáo</NavLink>
                     </li>
                 </ul>
             </nav>

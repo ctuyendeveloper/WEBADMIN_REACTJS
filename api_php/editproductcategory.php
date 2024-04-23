@@ -1,11 +1,11 @@
 <?php
 header("Content-Type: application/json; charset=UTF-8");
-header("Access-Control-Allow-Methods: DELETE");
+header("Access-Control-Allow-Methods: PUT");
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
-// http://127.0.0.1:8686/delete-news.php?id=2
+// http://127.0.0.1:8686/update-news.php?id=2
 
 // thêm mới tin tức
 
@@ -38,18 +38,16 @@ include_once './connection.php';
 
 try {
     // đọc dữ liệu từ json
-    // $data = json_decode(file_get_contents("php://input"));
+    $data = json_decode(file_get_contents("php://input"));
 
     // đặt biến
-    // $title = $data->title;
-    // $content = $data->content;
-    // $user_id = $data->user_id;
-    // $topic_id = $data->topic_id;
+    $name = $data->name;
+    $describe = $data->describe;
     $id = $_GET['id'];
 
     // cập nhật dữ liệu vào database
 
-    $sqlQuery = "DELETE FROM productcategory WHERE productcategory_id = $id";
+    $sqlQuery = "UPDATE productcategory SET productcategory_name = '$name', productcategory_describe = '$describe'  WHERE productcategory_id = $id";
 
 
     // thực thi câu lệnh pdo
@@ -58,7 +56,7 @@ try {
     $stmt->execute();
 
     // trả về thông báo
-    echo json_encode(array('message' => 'Xóa loại sản phẩm thành công.'));
-} catch (Exception $e) {
-    echo json_encode(array('message' => $e->getMessage()));
+    echo json_encode(array('message' => 'Cập nhật loại sản phẩm thành công.'));
+} catch (\Throwable $th) {
+    echo json_encode(array('message' => 'Cập nhật loại sản phẩm thất bại.'));
 }

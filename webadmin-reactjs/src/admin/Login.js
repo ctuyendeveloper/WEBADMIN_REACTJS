@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Logo from '../image/logo.png'
 import {
     MDBBtn,
     MDBContainer,
@@ -44,9 +45,9 @@ const Login = (props) => {
           <div className="d-flex flex-column ms-5">
 
             <div className="text-center">
-              <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/lotus.webp"
+              <img src={Logo}
                 style={{width: '185px'}} alt="logo" />
-              <h4 className="mt-1 mb-5 pb-1">We are The Lotus Team</h4>
+              <h4 className="mt-1 mb-5 pb-1">We are Peta Team</h4>
             </div>
 
             <p>Please sign in to your business account</p>

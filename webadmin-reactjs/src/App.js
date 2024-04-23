@@ -9,6 +9,7 @@ import ListProduct from './product/listproduct2'
 import ListBill from './bill/listbill'
 import ListCustomer from './customer/customer'
 import Resetpw from './customer/resetpassword'
+import Listcategory from './product/productcategory'
 
 function App() {
 
@@ -69,6 +70,7 @@ function App() {
             <Route path="/list-product" element={<ListProduct user={user} />} />
             <Route path="/list-bill" element={<ListBill user={user}/>}/>
             <Route path="/list-customer" element={<ListCustomer user={user}/>} />
+            <Route path="/list-productcategory" element={<Listcategory user={user}/>} />
             {/* <Route path="/addtp" element={<Addtp user={user}/>} />
             <Route path="/edittp/:id" element={<Edittp user={user}/>} />
             <Route path="/add" element={<Add user={user}/>} />

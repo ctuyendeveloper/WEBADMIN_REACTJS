@@ -151,4 +151,61 @@
 .profile:hover {
   background-color: #ddd;
 }
+.nav-item {
+  position: relative;
+}
 
+.submenu {
+  position: absolute;
+  top: calc(100%); /* Khoảng cách 10px giữa mục "Sản phẩm" và submenu */
+  left: 0;
+  background-color: #5CB15A; /* Đồng bộ màu nền */
+  padding: 10px 0;
+  min-width: 150px;
+  display: none;
+  z-index: 1000;
+  border-radius: 0 0 5px 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.nav-item:hover .submenu {
+  display: block;
+}
+
+.submenu {
+  padding: 10px 10px;
+}
+
+.submenu a {
+  color: #fff;
+  text-decoration: none;
+  display: block;
+}
+
+.submenu a:hover {
+  background-color: #4A9349; /* Đồng bộ màu nền hover */
+}
+.monthly-revenue {
+  background-color: #f0f0f0;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+/* Phần danh sách người mua hàng nhiều và danh sách top 5 sản phẩm bán chạy */
+.bottom-section {
+  display: flex;
+  justify-content: space-between;
+}
+
+.bottom-section > div {
+  width: calc(50% - 10px);
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.bottom-section > div:last-child {
+  margin-left: 20px;
+}
