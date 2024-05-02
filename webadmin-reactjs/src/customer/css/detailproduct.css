@@ -139,7 +139,7 @@ select {
     color: #007bff;
   }
 
-.detail-product-dialog .btnxoa {
+.detail-admin-dialog .btnxoa {
     background-color: #dc3545; /* Màu nền của nút */
     color: #fff; /* Màu chữ */
     border: none; /* Loại bỏ đường viền */
@@ -149,10 +149,10 @@ select {
     margin-right: 10px; /* Khoảng cách phía bên phải */
 }
 
-.detail-product-dialog .btnxoa:hover {
+.detail-admin-dialog .btnxoa:hover {
     background-color: #c82333; /* Màu nền khi di chuột qua */
 }
 
-.detail-product-dialog .btnxoa:focus {
+.detail-admin-dialog .btnxoa:focus {
     outline: none; /* Loại bỏ đường viền khi được focus */
 }

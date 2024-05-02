@@ -38,6 +38,7 @@ const ProductList = (props) => {
                 const response = await AxiosInstance().get('getlistcustomer5.php')
                 setCustomer(response); // Cập nhật state với dữ liệu sản phẩm từ API
                 const response2 = await AxiosInstance().get('testproduct5.php')
+                console.log(response2)
                 setProduct(response2); // Cập nhật state với dữ liệu sản phẩm từ API
                 const response3 = await AxiosInstance().get('testapimonth.php')
                 setdoanhthuthang(response3.monthly_revenue); // Cập nhật state với dữ liệu sản phẩm từ API
@@ -71,9 +72,9 @@ const ProductList = (props) => {
                     <table>
                         <thead>
                             <tr>
-                                <th>Tên sản phẩm</th>
-                                <th>Loại sản phẩm</th>
-                                <th>Giá sản phẩm</th>
+                                <th>Tên khách hàng</th>
+                                <th>Số điện thoại</th>
+                                <th>Số tiền đã mua</th>
                             </tr>
                         </thead>
                         {customer.length === 0 ? (
@@ -132,7 +133,7 @@ const ProductList = (props) => {
         <div className="full">
             <div className="top">
                 <a href="/"><img src={Logo} alt="Mô tả của ảnh" height={80} width={150} /></a>
-                <a className='profile' onClick={openProfileDialog}><p>{userData.user.ADMIN_PHONE}</p></a>
+                <a className='profile' onClick={openProfileDialog}><p>0{userData.user.ADMIN_PHONE}</p></a>
                 <div className={`overlay ${showOverlay ? 'show-overlay' : ''}`}></div> {/* Overlay */}
                 {showProfileDialog && <Profile userData={userData} onClose={closeProfileDialog} />}
             </div>

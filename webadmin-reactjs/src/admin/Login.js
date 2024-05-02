@@ -59,10 +59,7 @@ const Login = (props) => {
 
             <div className="text-center pt-1 mb-5 pb-1">
               <MDBBtn className="mb-4 w-100 gradient-custom-2" onClick={login}>Sign in</MDBBtn>
-              <a className="text-muted" href="#!">Forgot password?</a>
             </div>
-
-            
 
           </div>
 

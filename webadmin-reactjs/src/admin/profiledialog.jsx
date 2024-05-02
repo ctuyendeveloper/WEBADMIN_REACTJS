@@ -55,7 +55,7 @@ const DetailProductDialog = ({ userData, onClose }) => {
         setPreviewImage(URL.createObjectURL(file))
         const formData = new FormData();
         formData.append('image', file);
-        const uploadResponse = await fetch("http://127.0.0.1:8686/uploadfile0m.php", {
+        const uploadResponse = await fetch("http://206.189.45.141/api/uploadfile0m.php", {
           method: "POST",
           body: formData,
         });
@@ -99,6 +99,12 @@ const DetailProductDialog = ({ userData, onClose }) => {
         } catch (error) {
             console.error('Error updating product:', error);
         }
+    };
+
+    const handleLogout = () => {
+        localStorage.removeItem('user'); // Xóa dữ liệu của người dùng trong localStorage
+        onClose(); // Đóng dialog
+        window.location.href = '/'; // Chuyển hướng về trang đăng nhập hoặc trang chính
     };
 
     // const handleImageMouseDown = () => {
@@ -169,6 +175,7 @@ const DetailProductDialog = ({ userData, onClose }) => {
             </form>
             <br />
                 <button type="button" onClick={handleSubmit}>Lưu thay đổi</button>
+                <button type="button" onClick={handleLogout}>Đăng xuất</button> {/* Nút đăng xuất */}
                 <button type="button" onClick={onClose}>Đóng</button>
         </div>
     );

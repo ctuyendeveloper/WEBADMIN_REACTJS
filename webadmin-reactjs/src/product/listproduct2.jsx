@@ -98,7 +98,7 @@ const ProductList = (props) => {
        <div className="full">
             <div className="top">
                 <a href="/"><img src={Logo} alt="Mô tả của ảnh" height={80} width={150} /></a>
-                <a className='profile' onClick={openProfileDialog}><p>{userData.user.ADMIN_PHONE}</p></a>
+                <a className='profile' onClick={openProfileDialog}><p>0{userData.user.ADMIN_PHONE}</p></a>
                 {/* <div className={`overlay ${showOverlay ? 'show-overlay' : ''}`}></div> Overlay */}
                 {showProfileDialog && <Profile userData={userData} onClose={closeProfileDialog}/>}
             </div>

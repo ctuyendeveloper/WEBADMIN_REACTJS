@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import AxiosInstance from '../helper/AxiosInstance';
 import './css/detailproduct.css'; // Import CSS file for styling
+import DetailProductItem from './detailproductitem'; // Import DetailProductItem component
 
 const DetailProductDialog = ({ onClose, product }) => {
     const [detailbill, setdetailbill] = useState(product);
@@ -8,16 +9,21 @@ const DetailProductDialog = ({ onClose, product }) => {
     // const [productcategory, setproductcategory] = useState([]);
     const [billdetail, setbilldetail] = useState([]);
     const [product_category, setproduct_category] = useState();
+    const [isPendingApproval, setIsPendingApproval] = useState(false); // Thêm state để kiểm tra xem đơn hàng có ở trạng thái "Pending approval" hay không
     const [previewImages, setPreviewImages] = useState([]); // Thêm state để lưu trữ các ảnh được chọn từ máy tính cho xem trước
 
     useEffect(() => {
         const fetchImageUrls = async () => {
             try {
                 // Gọi API để lấy danh sách các URL hình ảnh
-                const response = await AxiosInstance().get(`/getdetailbill.php?id=${detailbill.bill_id}`)
+                // const response = await AxiosInstance().get(`/getdetailbill.php?id=${detailbill.bill_id}`)
+                const response2 = await AxiosInstance().get(`/testdetailw.php?id=${detailbill.BILL_ID}`)
+
                 // setbilldetail(response)
                 // const newsbilldetails = Array.isArray(response) ? response : [response]; // Đảm bảo rằng newsbilldetails luôn là một mảng
-                const newsbilldetail = Array.isArray(response) ? response[0] : response;
+                const newsbilldetail = Array.isArray(response2.data) ? response2.data[0] : response2.data;
+                setIsPendingApproval(newsbilldetail.BILL_STATUS === 1);
+                console.log(newsbilldetail)
                 setbilldetail(newsbilldetail)
             } catch (error) {
                 console.error('Error fetching image URLs:', error);
@@ -27,6 +33,43 @@ const DetailProductDialog = ({ onClose, product }) => {
         // Gọi hàm fetchImageUrls khi component được mount và khi sản phẩm được cập nhật
         fetchImageUrls();
     }, [detailbill.bill_id]);
+
+    const mapStatusToString = (status) => {
+        switch (status) {
+            case 1:
+                return "Pending approval";
+            case 2:
+                return "Shipping";
+            case 3:
+                return "Delivered";
+            default:
+                return "Unknown";
+        }
+    };
+    const mapStatusToString2 = (status) => {
+        switch (status) {
+            case 1:
+                return "Momo";
+            case 2:
+                return "Cash";
+            default:
+                return "Unknown";
+        }
+    };
+
+    const handleConfirmOrder = async () => {
+        try {
+            const response = await AxiosInstance().put(`/updateorder.php?id=${detailbill.BILL_ID}`);
+            alert(response.message);
+            window.location.reload()
+            // Xử lý kết quả sau khi gọi API
+            // Ví dụ: Hiển thị thông báo, cập nhật trạng thái đơn hàng, vv.
+        } catch (error) {
+            console.error('Error updating order:', error);
+        }
+    };
+
+
 
 
     // const handleChange = (e) => {
@@ -150,31 +193,33 @@ const DetailProductDialog = ({ onClose, product }) => {
                     <tr>
                         <div className="cotcha">
                             <div className="cot1">
-                                <label><b> Mã Hóa Đơn: {billdetail.bill_id}</b></label>
-                                <label>Ngày tạo: {billdetail.bill_createdat}</label>
-                                <label>Tên khách hàng (đặt hàng): {billdetail.customer_name}</label>
+                                <label><b> Mã Hóa Đơn: {billdetail.BILL_ID}</b></label>
+                                <label>Ngày tạo: {billdetail.BILL_CREATEDAT}</label>
+                                <label>Tên khách hàng (đặt hàng): {billdetail.CUSTOMER_NAME}</label>
                             </div>
                             <div className="cot2">
-                                <label>Trạng thái thanh toán: {billdetail.bill_status}</label>
-                                <label>Địa chỉ (người nhận): {billdetail.address_detail}</label>
-                                <label>Số điện thoại (người nhận): {billdetail.address_phone}</label>
-                                <label>Tên (người nhận): {billdetail.address_name}</label>
-                                <label>Phương thức thanh toán: {billdetail.bill_paymentmethod}</label>
+                                <label>Trạng thái đơn hàng: {mapStatusToString(billdetail.BILL_STATUS)}</label>
+                                <label>Địa chỉ (người nhận): {billdetail.ADDRESS_DETAIL}</label>
+                                <label>Số điện thoại (người nhận): {detailbill.ADDRESS_NAME}</label>
+                                <label>Tên (người nhận): {detailbill.ADDRESS_PHONE}</label>
+                                <label>Phương thức thanh toán: {mapStatusToString2(billdetail.BILL_PAYMENTMETHOD)}</label>
                             </div>
                             <div className="cot3">
-                                <label><b>Ghi chú: </b>{billdetail.bill_note}</label>
+                                <label><b>Ghi chú: </b>{billdetail.BILL_NOTE}</label>
                             </div>
                         </div>
                         <td className="cotkhachhang">
-                            <label>Tên Sản Phẩm: {billdetail.product_name}</label>
-                            <label>Đơn giá: <b>{billdetail.product_price}</b></label>
-                            <label>Số lượng: <b>{billdetail.orderdetail_quantity}</b></label>
-                            <label>Tổng tiền: <b>{billdetail.orderdetail_price}</b></label>
+                            {billdetail.ORDERDETAIL && billdetail.ORDERDETAIL.map((item, index) => (
+                                <DetailProductItem key={index} item={item} />
+                            ))}
+                            <br /><br />
+                            <label> Tổng tiền đơn hàng <b>{billdetail.totalPrice}</b></label>
                         </td>
                     </tr>
                 </tbody>
             </table>
             <br />
+            {isPendingApproval && <button type="button" onClick={handleConfirmOrder}>Xác nhận đơn hàng và vận chuyển</button>}
             <button type="button" onClick={onClose}>Đóng</button>
         </div>
     );

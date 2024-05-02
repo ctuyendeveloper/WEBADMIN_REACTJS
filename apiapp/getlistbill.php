@@ -9,12 +9,13 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 include_once './connection.php';
 
 try {
-    $id = $_GET['id'];
     $sqlQuery = "SELECT bill.bill_id, 
                         bill.bill_createdat, 
                         bill.bill_status, 
                         bill.bill_paymentmethod, 
-                        bill.bill_note, 
+                        bill.bill_note,
+                        address.address_name AS ADDRESS_NAME,
+                        address.address_phone AS ADDRESS_PHONE,
                         address.address_detail AS ADDRESS_DETAIL, 
                         customer.customer_name AS CUSTOMER_NAME, 
                         SUM(orderdetail.orderdetail_quantity * product.product_price) AS total_price,
@@ -24,7 +25,7 @@ try {
                                 'ORDERDETAIL_QUANTITY', orderdetail.orderdetail_quantity,
                                 'ORDERDETAIL_PRICE', orderdetail.orderdetail_price,
                                 'PRODUCT_ID', product.product_id,
-                                'PRODUCT', JSON_OBJECT('name', product.product_name, 'price', product.product_price)
+                                'PRODUCT', JSON_OBJECT('name', product.product_name, 'price', product.product_price, 'image_link', image.image_link)
                             )
                         ) AS ORDERDETAIL
                     FROM bill 
@@ -32,7 +33,9 @@ try {
                     INNER JOIN address ON bill.address_id = address.address_id 
                     INNER JOIN product ON orderdetail.product_id = product.product_id
                     INNER JOIN customer ON bill.customer_id = customer.customer_id
-                    WHERE bill.customer_id = $id
+                    INNER JOIN (
+                        SELECT product_id, MIN(image_link) AS image_link FROM image GROUP BY product_id
+                    ) AS image ON product.product_id = image.product_id
                     GROUP BY bill.bill_id";
 
     $stmt = $dbConn->prepare($sqlQuery);
@@ -51,6 +54,8 @@ try {
             "BILL_PAYMENTMETHOD" => $bill["bill_paymentmethod"],
             "BILL_NOTE" => $bill["bill_note"],
             "ADDRESS_DETAIL" => $bill["ADDRESS_DETAIL"],
+            "ADDRESS_NAME" => $bill["ADDRESS_NAME"],
+            "ADDRESS_PHONE" => $bill["ADDRESS_PHONE"],
             "CUSTOMER_NAME" => $bill["CUSTOMER_NAME"],
             "ORDERDETAIL" => json_decode($bill["ORDERDETAIL"], true), // Chuyển đổi chuỗi JSON thành mảng PHP
             "totalPrice" => $bill["total_price"]
